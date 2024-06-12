@@ -1,5 +1,3 @@
-#https://www.codingforentrepreneurs.com/blog/python-jwt-client-django-rest-framework-simplejwt/
-
 from dataclasses import dataclass
 import requests
 from getpass import getpass
