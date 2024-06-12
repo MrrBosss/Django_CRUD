@@ -8,13 +8,15 @@ class ProductIndex(AlgoliaIndex):
     # should_index = 'is_public'
     fields = [
         'title',
-        'content',
+        'body',
         'price',
         'user',
-        'public'
+        'public',
+        'path',
+        'endpoint',
     ]   
     settings = {
-        'searchableAttributes' : ['titile', 'content'],
+        'searchableAttributes' : ['titile', 'body'],
         'attributesForFaceting' : ['user', 'public']
     }
     tags = 'get_tags_list'
