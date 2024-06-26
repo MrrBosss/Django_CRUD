@@ -2,10 +2,16 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 # from django.http import Http404
 from django.shortcuts import get_object_or_404
-from rest_framework import generics,mixins
-from .models import Product
-from .serializers import ProductSerializer 
+from rest_framework import generics,mixins, viewsets
+from .models import Product, FAQ, Banner, Brand
+from .serializers import ProductSerializer, FAQSerializer, BannerSerializer, BrandSerializer
 from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin
+from rest_framework.pagination import PageNumberPagination
+from .models import Product
+from .serializers import ProductSerializer
+from rest_framework import generics
+from rest_framework import filters
+
 
 class ProductListCreateAPIView(
     UserQuerySetMixin,
@@ -157,6 +163,65 @@ def product_alt_view(request, pk=None, *args, **kwargs):
             return Response(serializer.data)
         return Response({"invalid": "not good data"}, status=400)
     
+
+
+
+class ProductViewSet(mixins.RetrieveModelMixin,
+                       mixins.ListModelMixin,
+                       viewsets.GenericViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filterset_fields = ['title', 'content', 'banner', 'brand', 'faq']
+
+
+class FAQViewSet(viewsets.ModelViewSet):
+    queryset = FAQ.objects.all()
+    serializer_class = FAQSerializer
+    http_method_names = ['get']
+    pagination_class = None
+    
+
+
+class BannerViewSet(viewsets.ModelViewSet):
+    queryset = Banner.objects.all()
+    serializer_class = BannerSerializer
+    http_method_names = ['get']
+    pagination_class = None
+    
+
+
+class BrandViewSet(mixins.RetrieveModelMixin,
+                       mixins.ListModelMixin,
+                       viewsets.GenericViewSet
+):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    pagination_class = None
+
+
+class LargeResultsSetPagination(PageNumberPagination):
+    page_size = 500
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
+class BannerView(generics.ListAPIView):
+    queryset = Banner.objects.all()
+    serializer_class = BannerSerializer
+    pagination_class = LargeResultsSetPagination
+
+from rest_framework import filters
+
+
+class ProductListView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=username', '=email']
 
 
 

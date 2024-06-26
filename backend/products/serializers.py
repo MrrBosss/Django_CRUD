@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product 
+from .models import Product , FAQ, Banner, Brand,ProductWeight
 from rest_framework.reverse import reverse
 from . import validators
 from api.serializers import UserPublicSerializer
@@ -48,4 +48,35 @@ class ProductSerializer(serializers.ModelSerializer):
             return None
         return reverse("product-edit", kwargs={"pk": obj.pk}, request=request)
 
-   
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = "__all__"
+
+
+class ProductWeightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductWeight
+        fields = "__all__"
+
+class FAQSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FAQ
+        fields = "__all__"
+
+
+class BannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Banner
+        fields = "__all__"
+
+
+
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = "__all__"
+        
+
+        
