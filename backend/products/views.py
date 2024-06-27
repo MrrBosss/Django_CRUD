@@ -3,11 +3,10 @@ from rest_framework.response import Response
 # from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics,mixins, viewsets
-from .models import Product, FAQ, Banner, Brand
-from .serializers import ProductSerializer, FAQSerializer, BannerSerializer, BrandSerializer
+from .models import Product, FAQ, Banner, Brand, ProductWeight
+from .serializers import ProductSerializer, FAQSerializer, BannerSerializer, BrandSerializer, ProductWeightSerializer
 from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin
 from rest_framework.pagination import PageNumberPagination
-from .models import Product
 from .serializers import ProductSerializer
 from rest_framework import generics
 from rest_framework import filters
@@ -174,6 +173,13 @@ class ProductViewSet(mixins.RetrieveModelMixin,
     filterset_fields = ['title', 'content', 'banner', 'brand', 'faq']
 
 
+class ProductWeightViewSet(viewsets.ModelViewSet):
+    queryset = ProductWeight.objects.all()
+    serializer_class = ProductWeightSerializer
+    http_method_names = ['get']
+    pagination_class = None
+
+
 class FAQViewSet(viewsets.ModelViewSet):
     queryset = FAQ.objects.all()
     serializer_class = FAQSerializer
@@ -222,6 +228,7 @@ class ProductListView(generics.ListAPIView):
     serializer_class = ProductSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['=username', '=email']
+
 
 
 
