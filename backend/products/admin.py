@@ -6,7 +6,6 @@ from .models import Product, ProductWeight, FAQ, Banner , Brand
 
 admin.site.register(Product)
 
-
 admin.site.register(ProductWeight)    
 
 admin.site.register(FAQ)
