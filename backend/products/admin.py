@@ -3,6 +3,10 @@ from modeltranslation.admin import TabbedTranslationAdmin
 
 # Register your models here.
 from .models import Product, ProductWeight, FAQ, Banner , Brand
+from .models import ProductList
+# from .models import 
+
+admin.site.register(ProductList)
 
 admin.site.register(Product)
 

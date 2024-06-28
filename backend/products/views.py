@@ -3,8 +3,8 @@ from rest_framework.response import Response
 # from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics,mixins, viewsets
-from .models import Product, FAQ, Banner, Brand, ProductWeight
-from .serializers import ProductSerializer, FAQSerializer, BannerSerializer, BrandSerializer, ProductWeightSerializer
+from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductList
+from .serializers import ProductSerializer, ProductListSerializer, FAQSerializer, BannerSerializer, BrandSerializer, ProductWeightSerializer
 from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin
 from rest_framework.pagination import PageNumberPagination
 from .serializers import ProductSerializer
@@ -92,14 +92,13 @@ product_destroy_view = ProductDestroyAPIView.as_view()
 
 
 # class ProductListAPIView(generics.ListAPIView):
-#     """ 
-#     Not gonna use this method 
-#     """
 #     queryset = Product.objects.all()
 #     serializer_class = ProductSerializer
 #     #lookup_field = 'pk'
 
 # product_list_view = ProductListAPIView.as_view()
+
+
 
 class ProductMixinView(
     mixins.CreateModelMixin,
@@ -176,6 +175,13 @@ class ProductViewSet(mixins.RetrieveModelMixin,
 class ProductWeightViewSet(viewsets.ModelViewSet):
     queryset = ProductWeight.objects.all()
     serializer_class = ProductWeightSerializer
+    http_method_names = ['get']
+    pagination_class = None
+
+
+class ProductListViewSet(viewsets.ModelViewSet):
+    queryset = ProductList.objects.all()
+    serializer_class = ProductListSerializer
     http_method_names = ['get']
     pagination_class = None
 

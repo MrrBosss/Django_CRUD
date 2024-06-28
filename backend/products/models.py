@@ -45,6 +45,13 @@ class FAQ(models.Model):
     def __str__(self):
         return str(self.question)
 
+class ProductList(models.Model):
+    product = models.TextField(null=True)
+
+
+class ProductRetrieve(models.Model):
+    pass
+
 
 class Banner(models.Model):
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
