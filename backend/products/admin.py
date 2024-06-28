@@ -6,6 +6,8 @@ from .models import Product, ProductWeight, FAQ, Banner , Brand
 from .models import ProductList
 # from .models import 
 
+# admin.site.register(ProductRetrieve)
+
 admin.site.register(ProductList)
 
 admin.site.register(Product)

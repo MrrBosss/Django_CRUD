@@ -41,7 +41,6 @@ class ProductSerializer(serializers.ModelSerializer):
         }
 
     
-    
     def get_edit_url(self, obj):
         request = self.context.get('request')  #self.request
         if request is None: 
@@ -49,10 +48,29 @@ class ProductSerializer(serializers.ModelSerializer):
         return reverse("product-edit", kwargs={"pk": obj.pk}, request=request)
 
 
+
+class ProductWeightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductWeight
+        fields = "__all__"
+
+
+
+
+class ProductListDetailSerializer(serializers.ModelSerializer):
+    weight = ProductWeightSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = Product
+        fields = "__all__"
+
+# TODO: FAQ product ni ichida
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"
+
 
 
 class ProductListSerializer(serializers.ModelSerializer):
@@ -67,10 +85,12 @@ class ProductWeightSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+
 class FAQSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
         fields = "__all__"
+
 
 
 class BannerSerializer(serializers.ModelSerializer):

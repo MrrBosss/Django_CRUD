@@ -10,7 +10,7 @@ from rest_framework.pagination import PageNumberPagination
 from .serializers import ProductSerializer
 from rest_framework import generics
 from rest_framework import filters
-
+from .serializers import ProductListDetailSerializer
 
 class ProductListCreateAPIView(
     UserQuerySetMixin,
@@ -165,10 +165,9 @@ def product_alt_view(request, pk=None, *args, **kwargs):
 
 
 class ProductViewSet(mixins.RetrieveModelMixin,
-                       mixins.ListModelMixin,
                        viewsets.GenericViewSet):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = ProductListDetailSerializer
     filterset_fields = ['title', 'content', 'banner', 'brand', 'faq']
 
 
@@ -237,4 +236,8 @@ class ProductListView(generics.ListAPIView):
 
 
 
+class ProductListDetailView(generics.RetrieveAPIView):
+    queryset = ProductList.objects.all()
+    serializer_class = ProductListDetailSerializer
+   
 

@@ -65,6 +65,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+
 ROOT_URLCONF = 'cfehome.urls'
 
 TEMPLATES = [
@@ -119,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'uz-ru'
+LANGUAGE_CODE = 'ru-en'
 
 TIME_ZONE = 'UTC'
 
@@ -184,9 +186,11 @@ SPECTACULAR_SETTINGS = {
 
 gettext = lambda s: s
 LANGUAGES = (
-    ('uz', gettext('Uzbek')),
     ('ru', gettext('Russian')),
+    ('en', gettext('English')),
 )
 MODELTRANSLATION_TRANSLATION_FILES = (
     'products.translations',
 )
+
+MEDIA_ROOT = "media/"
