@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path
 from products.views import FAQViewSet, BrandViewSet, BannerViewSet, ProductWeightViewSet, ProductListViewSet
 
-from products.views import ProductListDetailView, ProductColorViewset
+from products.views import ProductListDetailView, ProductColorViewset, ProductColorView
 
 
 router = DefaultRouter()
@@ -14,7 +14,8 @@ router.register('banners', BannerViewSet, basename='banners')
 router.register('brands', BrandViewSet, basename='brands')
 urlpatterns = router.urls
 urlpatterns += [
-    path("products-detail/<int:pk>/", ProductListDetailView.as_view(), name='product-detail')
+    path("products-detail/<int:pk>/", ProductListDetailView.as_view(), name='product-detail'),
+    path("products-detail/<int:pk>/", ProductColorView.as_view(), name='product-detail')
 ]
 
 

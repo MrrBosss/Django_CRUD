@@ -250,3 +250,6 @@ class ProductListDetailView(generics.RetrieveAPIView):
     serializer_class = ProductListDetailSerializer
    
 
+class ProductColorView(generics.RetrieveAPIView):
+    queryset = ProductList.objects.all()
+    serializer_class = ProductListDetailSerializer
