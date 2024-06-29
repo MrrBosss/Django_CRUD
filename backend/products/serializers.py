@@ -49,6 +49,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 
+class ProductColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductColor
+        fields = ['name', 'color']
+
+
+
 class ProductWeightSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductWeight
@@ -59,6 +66,7 @@ class ProductWeightSerializer(serializers.ModelSerializer):
 
 class ProductListDetailSerializer(serializers.ModelSerializer):
     weight = ProductWeightSerializer(many=True, read_only=True)
+    color = ProductColorSerializer(many=True, read_only=True)
     
     class Meta:
         model = Product
@@ -107,7 +115,3 @@ class BrandSerializer(serializers.ModelSerializer):
         
 
 
-class ProductColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProductColor
-        fields = ['name', 'color']

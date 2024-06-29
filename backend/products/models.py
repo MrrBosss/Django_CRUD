@@ -81,6 +81,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to="products", null=True, blank=True)
     objects = ProductManager()
     weight = models.ManyToManyField(ProductWeight)
+    color = models.ManyToManyField(ProductColor)
     # faq = models.ManyToManyField(FAQ)
     # banner = models.ManyToManyField(Banner)
     # brand = models.ManyToManyField(Brand) Bula alohida turishi kere product ga taaluqli joyi yoq
