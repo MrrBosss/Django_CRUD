@@ -135,9 +135,9 @@ class ProductList(models.Model):
     image = models.ImageField(upload_to="products", null=True, blank=True)
     objects = ProductManager()
     weight = models.ManyToManyField(ProductWeight)
-    faq = models.ManyToManyField(FAQ)
-    banner = models.ManyToManyField(Banner)
-    brand = models.ManyToManyField(Brand)
+    # faq = models.ManyToManyField(FAQ)
+    # banner = models.ManyToManyField(Banner)
+    # brand = models.ManyToManyField(Brand)
 
 
 
