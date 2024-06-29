@@ -131,3 +131,10 @@ class ProductList(models.Model):
     faq = models.ManyToManyField(FAQ)
     banner = models.ManyToManyField(Banner)
     brand = models.ManyToManyField(Brand)
+
+
+
+class ProductColor(models.Model):
+    name = models.CharField(max_length=150)
+    color = models.CharField(max_length=60)
+

@@ -2,10 +2,11 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path
 from products.views import FAQViewSet, BrandViewSet, BannerViewSet, ProductWeightViewSet, ProductListViewSet
 
-from products.views import ProductListDetailView
+from products.views import ProductListDetailView, ProductColorViewset
 
 
 router = DefaultRouter()
+router.register('product-color', ProductColorViewset, basename='product-color')
 router.register('product-weights', ProductWeightViewSet, basename='product-weights')
 router.register('products', ProductListViewSet, basename='product lists')
 router.register('faqs', FAQViewSet, basename='faqs')
