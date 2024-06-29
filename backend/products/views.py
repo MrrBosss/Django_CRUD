@@ -3,14 +3,14 @@ from rest_framework.response import Response
 # from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics,mixins, viewsets
-from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductList, ProductColor
-from .serializers import ProductSerializer, ProductListSerializer, FAQSerializer, BannerSerializer, BrandSerializer, ProductWeightSerializer
+from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor # ProductList
+from .serializers import ProductSerializer, ProductSerializer, FAQSerializer, BannerSerializer, BrandSerializer, ProductWeightSerializer
 from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin
 from rest_framework.pagination import PageNumberPagination
 from .serializers import ProductSerializer
 from rest_framework import generics
 from rest_framework import filters
-from .serializers import ProductListDetailSerializer, ProductColorSerializer
+from .serializers import  ProductColorSerializer, ProductDetailSerializer
 
 class ProductListCreateAPIView(
     UserQuerySetMixin,
@@ -167,7 +167,7 @@ def product_alt_view(request, pk=None, *args, **kwargs):
 class ProductViewSet(mixins.RetrieveModelMixin,
                        viewsets.GenericViewSet):
     queryset = Product.objects.all()
-    serializer_class = ProductListDetailSerializer
+    serializer_class = ProductDetailSerializer
     filterset_fields = ['title', 'content', 'banner', 'brand', 'faq']
 
 
@@ -187,11 +187,11 @@ class ProductColorViewset(viewsets.ModelViewSet):
 
 
 
-class ProductListViewSet(viewsets.ModelViewSet):
-    queryset = ProductList.objects.all()
-    serializer_class = ProductListSerializer
-    http_method_names = ['get']
-    pagination_class = None
+# class ProductListViewSet(viewsets.ModelViewSet):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     http_method_names = ['get']
+#     pagination_class = None
 
 
 class FAQViewSet(viewsets.ModelViewSet):
@@ -245,11 +245,11 @@ class ProductListView(generics.ListAPIView):
 
 
 
-class ProductListDetailView(generics.RetrieveAPIView):
-    queryset = ProductList.objects.all()
-    serializer_class = ProductListDetailSerializer
+class ProductDetailView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductDetailSerializer
    
 
-class ProductColorView(generics.RetrieveAPIView):
-    queryset = ProductList.objects.all()
-    serializer_class = ProductListDetailSerializer
+# class ProductColorView(generics.RetrieveAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductDetailSerializer

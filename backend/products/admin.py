@@ -3,12 +3,12 @@ from modeltranslation.admin import TabbedTranslationAdmin
 
 # Register your models here.
 from .models import Product, ProductWeight, FAQ, Banner , Brand
-from .models import ProductList, ProductColor
+from .models import  ProductColor #ProductList
 # from .models import 
 
 # admin.site.register(ProductRetrieve)
 
-admin.site.register(ProductList)
+# admin.site.register(ProductList)
 
 admin.site.register(Product)
 
