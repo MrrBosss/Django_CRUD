@@ -38,6 +38,13 @@ class ProductWeight(models.Model):
         return str(self.value)
 
 
+class ProductColor(models.Model):
+    name = models.CharField(max_length=150)
+    color = models.CharField(max_length=60)
+
+
+
+
 class FAQ(models.Model):
     question = models.CharField(max_length=500, null=True)
     answer = models.CharField(max_length=500, null=True)
@@ -134,7 +141,4 @@ class ProductList(models.Model):
 
 
 
-class ProductColor(models.Model):
-    name = models.CharField(max_length=150)
-    color = models.CharField(max_length=60)
 
