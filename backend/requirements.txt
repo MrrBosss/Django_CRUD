@@ -5,5 +5,4 @@ djangorestframework-simplejwt
 pyyaml
 requests
 django-cors-headers
-django-filter
-django-modeltranslation
+
