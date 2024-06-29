@@ -137,6 +137,7 @@ class ProductList(models.Model):
     weight = models.ManyToManyField(ProductWeight)
     # faq = models.ManyToManyField(FAQ)
     # banner = models.ManyToManyField(Banner)
+    
     # brand = models.ManyToManyField(Brand)
 
 
