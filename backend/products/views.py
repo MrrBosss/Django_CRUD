@@ -14,6 +14,7 @@ from .serializers import  ProductColorSerializer, ProductDetailSerializer, Categ
 import django_filters.rest_framework
 from .filters import ProductFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from decimal import Decimal
 
 
 
@@ -247,12 +248,12 @@ class BannerView(generics.ListAPIView):
 
 
     
-class ProductView(generics.ListAPIView):
+class ProductList(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = ['weight', 'color'] 
-    search_fields = ['=username', '=email']
+    http_method_names = ['get']
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductFilter
 
 
 
@@ -272,17 +273,17 @@ class ProductDetailView(generics.RetrieveAPIView):
 
 
 
-class ProductList(generics.ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    http_method_names = ['get']
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = ProductFilter
+# class ProductList(generics.ListAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     http_method_names = ['get']
+#     filter_backends = [DjangoFilterBackend]
+#     filterset_class = ProductFilter
 
 
 
 class Orderview(generics.CreateAPIView):
-    queryset = Product.objects.all()
+    queryset = Order.objects.all()
     serializer_class = OrderSerializer
     http_method_names = ['post']
 
