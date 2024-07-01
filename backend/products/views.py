@@ -3,14 +3,14 @@ from rest_framework.response import Response
 # from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics,mixins, viewsets
-from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor, Category # ProductList
+from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor, Category, Order # ProductList
 from .serializers import ProductSerializer, ProductSerializer, FAQSerializer, BannerSerializer, BrandSerializer, ProductWeightSerializer
 from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin
 from rest_framework.pagination import PageNumberPagination
 from .serializers import ProductSerializer
 from rest_framework import generics
 from rest_framework import filters
-from .serializers import  ProductColorSerializer, ProductDetailSerializer, CategorySerializer
+from .serializers import  ProductColorSerializer, ProductDetailSerializer, CategorySerializer, OrderSerializer
 import django_filters.rest_framework
 from .filters import ProductFilter
 from django_filters.rest_framework import DjangoFilterBackend
@@ -278,6 +278,15 @@ class ProductList(generics.ListAPIView):
     http_method_names = ['get']
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductFilter
+
+
+
+class Orderview(generics.CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = OrderSerializer
+    http_method_names = ['post']
+
+
 
 # class ProductColorView(generics.RetrieveAPIView):
 #     queryset = Product.objects.all()

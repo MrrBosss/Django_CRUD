@@ -76,15 +76,13 @@ class Brand(models.Model):
 class Category(models.Model):
     name = models.TextField(max_length=50)
 
-    
-
 
 
 class Product(models.Model):
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=120, null=True)
     content = models.TextField(blank=True, null=True)
-    price = models.IntegerField() 
+    price = models.IntegerField(default=10000) 
     public = models.BooleanField(default=True)
     image = models.ImageField(upload_to="products", null=True, blank=True)
     objects = ProductManager()
@@ -137,6 +135,14 @@ class Product(models.Model):
 
     def get_discount(self):
         return '123'
+
+
+
+class Order(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    count = models.IntegerField(default=0)
+    
+    
 
 
 # class ProductList(models.Model):
