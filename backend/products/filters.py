@@ -3,8 +3,8 @@ import django_filters
 from .models import Product, ProductColor, ProductWeight
 
 class ProductFilter(django_filters.FilterSet):
-    price__gte = django_filters.NumberFilter(field_name='price', lookup_expr='gte')
-    price__lte = django_filters.NumberFilter(field_name='price', lookup_expr='lte')
+    min_price = django_filters.NumberFilter(field_name='price', lookup_expr='gte')
+    max_price = django_filters.NumberFilter(field_name='price', lookup_expr='lte')
     weight = django_filters.ModelMultipleChoiceFilter(
         field_name='weight', # shetda xato
         queryset=ProductWeight.objects.all(),
@@ -19,7 +19,7 @@ class ProductFilter(django_filters.FilterSet):
 
     class Meta:
         model = Product
-        fields = ['price__gte', 'price__lte', 'weight', 'color']
+        fields = ['min_price', 'max_price', 'weight', 'color']
 
 
 
