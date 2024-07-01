@@ -12,7 +12,10 @@ from .models import  ProductColor #ProductList
 
 admin.site.register(Order)
 
-admin.site.register(Product)
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['title', 'category']
 
 admin.site.register(ProductWeight)    
 

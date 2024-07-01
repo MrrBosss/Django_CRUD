@@ -74,26 +74,23 @@ class Brand(models.Model):
 
 
 class Category(models.Model):
-    name = models.TextField(max_length=50)
+    name = models.CharField(max_length=50)
 
+    def __str__(self) -> str:
+        return self.name
 
 
 class Product(models.Model):
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=120, null=True)
     content = models.TextField(blank=True, null=True)
-    price = models.IntegerField(default=10000) 
+    price = models.FloatField(default=10.000) 
     public = models.BooleanField(default=True)
     image = models.ImageField(upload_to="products", null=True, blank=True)
     objects = ProductManager()
     weight = models.ManyToManyField(ProductWeight)
     color = models.ManyToManyField(ProductColor)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null= True)
-
-    
-    # faq = models.ManyToManyField(FAQ)
-    # banner = models.ManyToManyField(Banner)
-    # brand = models.ManyToManyField(Brand) Bula alohida turishi kere product ga taaluqli joyi yoq
 
 
 
