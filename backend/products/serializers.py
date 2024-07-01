@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor # ProductList,
+from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor, Category # ProductList,
 from rest_framework.reverse import reverse
 from . import validators
 from api.serializers import UserPublicSerializer
@@ -74,17 +74,17 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
 # TODO: FAQ product ni ichida
 
-# class ProductSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Product
-#         fields = "__all__"
-
-
-
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"
+
+
+
+# class ProductSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Product
+#         fields = "__all__"
 
 
 # class ProductWeightSerializer(serializers.ModelSerializer):
@@ -92,6 +92,14 @@ class ProductSerializer(serializers.ModelSerializer):
 #         model = ProductWeight
 #         fields = "__all__"
 
+
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
+    
 
 
 class FAQSerializer(serializers.ModelSerializer):

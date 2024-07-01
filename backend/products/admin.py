@@ -2,7 +2,7 @@ from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin
 
 # Register your models here.
-from .models import Product, ProductWeight, FAQ, Banner , Brand
+from .models import Product, ProductWeight, FAQ, Banner , Brand, Category
 from .models import  ProductColor #ProductList
 # from .models import 
 
@@ -15,6 +15,8 @@ admin.site.register(Product)
 admin.site.register(ProductWeight)    
 
 admin.site.register(ProductColor)
+
+admin.site.register(Category)
 
 admin.site.register(FAQ)
 

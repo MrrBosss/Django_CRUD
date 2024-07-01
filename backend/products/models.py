@@ -72,16 +72,25 @@ class Brand(models.Model):
         return str(self.brands)
     
 
+
+class Category(models.Model):
+    name = models.TextField(max_length=50)
+
+    
+
+
+
 class Product(models.Model):
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=120, null=True)
     content = models.TextField(blank=True, null=True)
-    price = models.DecimalField(max_digits=15, decimal_places=2, default=99.99) 
+    price = models.IntegerField() 
     public = models.BooleanField(default=True)
     image = models.ImageField(upload_to="products", null=True, blank=True)
     objects = ProductManager()
     weight = models.ManyToManyField(ProductWeight)
     color = models.ManyToManyField(ProductColor)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null= True)
 
     
     # faq = models.ManyToManyField(FAQ)

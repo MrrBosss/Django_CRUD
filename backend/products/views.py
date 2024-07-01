@@ -3,14 +3,20 @@ from rest_framework.response import Response
 # from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics,mixins, viewsets
-from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor # ProductList
+from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor, Category # ProductList
 from .serializers import ProductSerializer, ProductSerializer, FAQSerializer, BannerSerializer, BrandSerializer, ProductWeightSerializer
 from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin
 from rest_framework.pagination import PageNumberPagination
 from .serializers import ProductSerializer
 from rest_framework import generics
 from rest_framework import filters
-from .serializers import  ProductColorSerializer, ProductDetailSerializer
+from .serializers import  ProductColorSerializer, ProductDetailSerializer, CategorySerializer
+import django_filters.rest_framework
+from .filters import ProductFilter
+from django_filters.rest_framework import DjangoFilterBackend
+
+
+
 
 class ProductListCreateAPIView(
     UserQuerySetMixin,
@@ -168,7 +174,7 @@ class ProductViewSet(mixins.RetrieveModelMixin,
                        viewsets.GenericViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
-    filterset_fields = ['title', 'content', 'banner', 'brand', 'faq']
+
 
 
 class ProductWeightViewSet(viewsets.ModelViewSet):
@@ -187,11 +193,13 @@ class ProductColorViewset(viewsets.ModelViewSet):
 
 
 
-# class ProductListViewSet(viewsets.ModelViewSet):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#     http_method_names = ['get']
-#     pagination_class = None
+class CategoryView(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    http_method_names = ['get']
+    pagination_class = None
+
+
 
 
 class FAQViewSet(viewsets.ModelViewSet):
@@ -229,18 +237,21 @@ class LargeResultsSetPagination(PageNumberPagination):
 #     page_size_query_param = 'page_size'
 #     max_page_size = 1000
 
+
+
+
 class BannerView(generics.ListAPIView):
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
     pagination_class = LargeResultsSetPagination
 
-from rest_framework import filters
 
-
-class ProductListView(generics.ListAPIView):
+    
+class ProductView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = ['weight', 'color'] 
     search_fields = ['=username', '=email']
 
 
@@ -249,6 +260,24 @@ class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
    
+
+
+
+# class ProductListView(generics.ListAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     http_method_names = ['get']
+#     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+#     filterset_fields = ['weight', 'color', 'categories'] 
+
+
+
+class ProductList(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    http_method_names = ['get']
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductFilter
 
 # class ProductColorView(generics.RetrieveAPIView):
 #     queryset = Product.objects.all()
