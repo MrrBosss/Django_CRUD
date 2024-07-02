@@ -3,7 +3,7 @@ from modeltranslation.admin import TabbedTranslationAdmin
 
 # Register your models here.
 from .models import Product, ProductWeight, FAQ, Banner , Brand, Category, Order
-from .models import  ProductColor #ProductList
+from .models import  ProductColor, Catalog #ProductList
 # from .models import 
 
 # admin.site.register(ProductRetrieve)
@@ -20,6 +20,8 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['title', 'category']
+
+admin.site.register(Catalog)
 
 admin.site.register(ProductWeight)    
 

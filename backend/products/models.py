@@ -78,7 +78,12 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
-        
+
+
+
+class Catalog(models.Model):
+    catalog = models.FileField(upload_to='products')
+
 
 
 class Product(models.Model):

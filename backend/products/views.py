@@ -3,14 +3,14 @@ from rest_framework.response import Response
 # from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics,mixins, viewsets
-from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor, Category, Order # ProductList
+from .models import Product, FAQ, Banner, Brand, ProductWeight, ProductColor, Category, Order, Catalog # ProductList
 from .serializers import ProductSerializer, ProductSerializer, FAQSerializer, BannerSerializer, BrandSerializer, ProductWeightSerializer
 from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin
 from rest_framework.pagination import PageNumberPagination
 from .serializers import ProductSerializer
 from rest_framework import generics
 from rest_framework import filters
-from .serializers import  ProductColorSerializer, ProductDetailSerializer, CategorySerializer, OrderSerializer
+from .serializers import  ProductColorSerializer, ProductDetailSerializer, CategorySerializer, OrderSerializer, CatalogSerializer
 import django_filters.rest_framework
 from .filters import ProductFilter
 from django_filters.rest_framework import DjangoFilterBackend
@@ -176,6 +176,13 @@ class BannerView(generics.ListAPIView):
     pagination_class = LargeResultsSetPagination
 
 
+
+class CatalogList(generics.ListAPIView):
+    queryset = Catalog.objects.all()
+    serializer_class = CatalogSerializer
+    http_method_names = ['get']
+    pagination_class = None
+
     
 class ProductList(generics.ListAPIView):
     queryset = Product.objects.all()
@@ -192,32 +199,7 @@ class ProductDetailView(generics.RetrieveAPIView):
    
 
 
-
-# class ProductListView(generics.ListAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#     http_method_names = ['get']
-#     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-#     filterset_fields = ['weight', 'color', 'categories'] 
-
-
-
-# class ProductList(generics.ListAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#     http_method_names = ['get']
-#     filter_backends = [DjangoFilterBackend]
-#     filterset_class = ProductFilter
-
-
-
 class Orderview(generics.CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     http_method_names = ['post']
-
-
-
-# class ProductColorView(generics.RetrieveAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductDetailSerializer
