@@ -78,6 +78,7 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
+        
 
 
 class Product(models.Model):
@@ -91,7 +92,7 @@ class Product(models.Model):
     weight = models.ManyToManyField(ProductWeight)
     color = models.ManyToManyField(ProductColor)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null= True)
-
+    # order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
 
 
     def get_absolute_url(self):
@@ -133,14 +134,7 @@ class Product(models.Model):
     def get_discount(self):
         return '123'
 
-
-
-class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-    count = models.IntegerField(default=0)
     
-    
-
 
 # class ProductList(models.Model):
 #     title = models.CharField(max_length=120, null=True)
@@ -152,9 +146,19 @@ class Order(models.Model):
 #     weight = models.ManyToManyField(ProductWeight)
     # faq = models.ManyToManyField(FAQ)
     # banner = models.ManyToManyField(Banner)
-    
     # brand = models.ManyToManyField(Brand)
 
 
 
+class Order(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    color = models.CharField(max_length=20, null=True)
+    weight = models.IntegerField(null=True)
+    quantity = models.IntegerField(default=0)
 
+    @property
+    def total_price(self):
+        # Calculate product's price sum
+        if self.product:
+            return self.quantity * self.product.price
+        return 0

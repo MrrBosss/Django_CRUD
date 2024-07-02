@@ -25,7 +25,7 @@ class FAQTranslationOptions(TranslationOptions):
 
 @register(Brand)
 class BrandTranslationOptions(TranslationOptions):
-    fields = ('brands', 'name')
+    fields = ('name',)
 
 
 

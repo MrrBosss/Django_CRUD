@@ -10,8 +10,12 @@ from .models import  ProductColor #ProductList
 
 # admin.site.register(ProductList)
 
-admin.site.register(Order)
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ["product", "quantity", "color", "weight", "total_price"]
 
+    def total_price(self, obj):
+        return obj.total_price
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
