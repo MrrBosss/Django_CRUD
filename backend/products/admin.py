@@ -1,14 +1,9 @@
-from django.contrib import admin
-from modeltranslation.admin import TabbedTranslationAdmin
-
 # Register your models here.
+from django.contrib import admin
 from .models import Product, ProductWeight, FAQ, Banner , Brand, Category, Order
-from .models import  ProductColor, Catalog #ProductList
-# from .models import 
+from .models import  ProductColor, Catalog 
 
-# admin.site.register(ProductRetrieve)
 
-# admin.site.register(ProductList)
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):

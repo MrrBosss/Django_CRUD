@@ -5,14 +5,15 @@ from . import validators
 from api.serializers import UserPublicSerializer
 
 
+
 class ProductInlineSerializer(serializers.Serializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='product-detail',
         lookup_field='pk',
         read_only=True,
-
     )
-    title = serializers.CharField(read_only=True)
+    title = serializers.CharField(read_only=True)   
+
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -40,7 +41,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "username": obj.user.username
         }
 
-    
     def get_edit_url(self, obj):
         request = self.context.get('request')  #self.request
         if request is None: 
@@ -63,7 +63,6 @@ class ProductWeightSerializer(serializers.ModelSerializer):
 
 
 
-
 class ProductDetailSerializer(serializers.ModelSerializer):
     weight = ProductWeightSerializer(many=True, read_only=True)
     color = ProductColorSerializer(many=True, read_only=True)
@@ -72,26 +71,12 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         model = Product
         fields = "__all__"
 
-# TODO: FAQ product ni ichida
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"
-
-
-
-# class ProductSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Product
-#         fields = "__all__"
-
-
-# class ProductWeightSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ProductWeight
-#         fields = "__all__"
-
 
 
 
