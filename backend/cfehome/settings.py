@@ -29,6 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React development server
+    "https://derek.itlink.uz",  # Your production domain
+    # Add more origins as needed, or use '*' to allow any origin
+]
 
 # Application definition
 
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #third party api services
+    'corsheaders',
     'django_filters',
     'modeltranslation',
     'drf_spectacular',
@@ -63,6 +69,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 
@@ -121,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru-en'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -189,6 +197,8 @@ LANGUAGES = (
     ('ru', gettext('Russian')),
     ('en', gettext('English')),
 )
+
+
 MODELTRANSLATION_TRANSLATION_FILES = (
     'products.translations',
 )
