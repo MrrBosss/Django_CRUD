@@ -59,6 +59,7 @@ class FAQ(models.Model):
 
 class Banner(models.Model):
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
+    image = models.ImageField(upload_to="banners", null=True)
     title = models.CharField(max_length=500, null=True)
     subtitle = models.TextField(blank=True, null=True)
     link = models.CharField(max_length=250, null=True)
@@ -97,6 +98,7 @@ class Product(models.Model):
     objects = ProductManager()
     weight = models.ManyToManyField(ProductWeight)
     color = models.ManyToManyField(ProductColor)
+    # color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, null= True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null= True)
 
     def get_absolute_url(self):
@@ -132,15 +134,37 @@ class Product(models.Model):
 
     
 
+# class Order(models.Model):
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+#     color = models.CharField(max_length=20, null=True)
+#     weight = models.IntegerField(null=True)
+#     quantity = models.IntegerField(default=0)
+
+#     @property
+#     def total_price(self):
+#         # Calculate product's price sum
+#         if self.product:
+#             return self.quantity * self.product.price
+#         return 0
+
+
 class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    order_date = models.DateTimeField(auto_now_add=True,null=True)
+    name = models.CharField(max_length=100, null=True)
+    phone_number = models.CharField(max_length=20, null=True)
+    # Add other fields like customer information, shipping details, etc.
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     color = models.CharField(max_length=20, null=True)
     weight = models.IntegerField(null=True)
     quantity = models.IntegerField(default=0)
 
     @property
+    def subtotal(self):
+        return self.quantity * self.product.price
+
+    @property
     def total_price(self):
-        # Calculate product's price sum
-        if self.product:
-            return self.quantity * self.product.price
-        return 0
+        return sum(item.subtotal for item in self.order.items.all())

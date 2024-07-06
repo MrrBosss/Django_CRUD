@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'modeltranslation',
     'drf_spectacular',
 
-    'algoliasearch_django',
     #third party packages
     'rest_framework',
     'rest_framework.authtoken',
@@ -166,11 +165,6 @@ REST_FRAMEWORK = {
     
 #environment variables = django-dotenv = reads.env
 
-ALGOLIA = {
-    'APPLICATION_ID': 'O5WKBO3JE4',
-    'API_KEY': 'fbb1086341a5c427abeed4381eed7636',
-    'INDEX_PREFIX': 'boss'
-}
 
 
 SIMPLE_JWT = {

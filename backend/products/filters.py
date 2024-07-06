@@ -1,5 +1,5 @@
 import django_filters
-from .models import Product, ProductColor, ProductWeight
+from .models import Product, ProductColor, ProductWeight, Category
 
 
 
@@ -13,12 +13,18 @@ class ProductFilter(django_filters.FilterSet):
     )
 
     color = django_filters.ModelMultipleChoiceFilter(
-        field_name='color',
+        field_name='color', 
         queryset=ProductColor.objects.all(),
         label='Color'
     )
+    category = django_filters.ModelChoiceFilter(
+        field_name='category',
+        queryset=Category.objects.all(),
+        label='Category'
+    )
+
 
     class Meta:
         model = Product
-        fields = ['min_price', 'max_price', 'weight', 'color']
+        fields = ['min_price', 'max_price', 'weight', 'color', 'category']
 
